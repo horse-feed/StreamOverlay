@@ -3722,7 +3722,9 @@
                                         x:Name="sVolume"
                                         
                                         Minimum="0"
-                                        Maximum="1"
+                                        IsSnapToTickEnabled="False"
+                                        TickFrequency="20"
+                                        Maximum="100"
                                         Focusable="False"
                                         ValueChanged="sVolume_ValueChanged" />
                             </StackPanel>

@@ -1381,7 +1381,7 @@ namespace StreamOverlay
                 map.Home = 0;
                 map.Veto = 0;
             }
-            //NotifyPropertyChanged(
+            alignBO();
         }
 
         private void Button_Click_9(object sender, RoutedEventArgs e)

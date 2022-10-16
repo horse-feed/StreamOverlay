@@ -167,14 +167,6 @@
                                       HorizontalScrollBarVisibility="Hidden"
                                       VerticalScrollBarVisibility="Hidden" />
                     </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsFocused"
-                                 Value="True">
-                            <Setter TargetName="Border"
-                                    Property="BorderBrush"
-                                    Value="#FFDADADA" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

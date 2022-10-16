@@ -1102,7 +1102,7 @@ namespace StreamOverlay
 
         private void sVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            this.BeginAnimation(SoundVolume, new DoubleAnimation(e.NewValue, TimeSpan.FromMilliseconds(0)));
+            this.BeginAnimation(SoundVolume, new DoubleAnimation(e.NewValue/100, TimeSpan.FromMilliseconds(0)));
             Volume = e.NewValue;
         }
 
