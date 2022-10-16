@@ -17,9 +17,9 @@
 *A tool for setting up a professional overlay for the Age of Empires series*
 
 **Developer:** VladTheJunior<br />
-**Current version:** 0.3.1<br />
+**Current version:** 0.3.3<br />
 
-[Download Installer from Goolge Drive](https://drive.google.com/file/d/1RtF2Y6E4iVQVLp8-55y5d3oxkzJwGMHX/view?usp=sharing)<br />
+[Download Installer from Goolge Drive](https://drive.google.com/file/d/1AGZmd86wbJcniP1xL6v4WjT9JrWvGBEz/view?usp=sharing)<br />
 [Download Portable (.ZIP archive)](https://github.com/VladTheJunior/StreamOverlayUpdates/archive/refs/heads/master.zip)<br />
 
 *__Note:__ Portable version may require .NET6 desktop runtime: https://dotnet.microsoft.com/en-us/download/dotnet/6.0*
@@ -66,6 +66,8 @@ You can also join my discord server to stay up to date with the latest updates a
 ![](Images/12.png)
 ![](Images/13.PNG)
 ![](Images/17.png)
+![](Images/19.png)
+![](Images/20.png)
 ![](Images/6.png)
 
 <!-- LICENSE -->
