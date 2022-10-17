@@ -7,9 +7,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Handlers;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,8 +31,8 @@ namespace StreamOverlayUpdater
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private int progress;
-        public int Progress
+        private long progress;
+        public long Progress
         {
             get { return progress; }
             set
@@ -62,16 +64,6 @@ namespace StreamOverlayUpdater
             }
         }
 
-        private string updateName;
-        public string UpdateName
-        {
-            get { return updateName; }
-            set
-            {
-                updateName = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         private string progressText;
         public string ProgressText
@@ -102,6 +94,8 @@ namespace StreamOverlayUpdater
             public string md5 { get; set; }
             public long size { get; set; }
             public string install_path { get; set; }
+            [JsonIgnore]
+            public long downloaded { get; set; } = 0;
 
         }
         public string CurrentVersion
@@ -139,8 +133,11 @@ namespace StreamOverlayUpdater
         public Updates ServerUpdates { get; set; } = new Updates();
         public Updates ClientUpdates { get; set; } = new Updates();
         public ConcurrentQueue<Update> NewUpdates { get; set; } = new ConcurrentQueue<Update>();
+        public List<Update> UpdateProgress = new List<Update>();
 
-        private readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromMinutes(60) };
+        private readonly HttpClient httpClient;
+
+
 
         static async Task<string> CalculateMD5(string filename)
         {
@@ -168,11 +165,6 @@ namespace StreamOverlayUpdater
 
 
                 }
-
-                Interlocked.Increment(ref progress);
-                NotifyPropertyChanged("Progress");
-                ProgressText = $"Downloaded: file {progress} of {maximum}";
-                UpdateName = update.install_path;
             }
             catch
             {
@@ -224,11 +216,35 @@ namespace StreamOverlayUpdater
             InitializeComponent();
             DataContext = this;
             Cursor = new Cursor(Application.GetResourceStream(new Uri("pack://application:,,,/resources/Cursor.cur")).Stream);
+
+            var handler = new HttpClientHandler() { AllowAutoRedirect = true };
+
+            var ph = new ProgressMessageHandler(handler);
+
+
+            ph.HttpReceiveProgress += (sender, args) =>
+            {
+                UpdateProgress.First(x => x.url == (sender as HttpRequestMessage).RequestUri.ToString()).downloaded = args.BytesTransferred;
+                progress = UpdateProgress.Sum(x => x.downloaded);
+                ProgressText = "Downloading: " + FormatFileSize(progress) + " of " + FormatFileSize(maximum);
+                NotifyPropertyChanged("Progress");
+
+            };
+            httpClient = new(ph) { Timeout = TimeSpan.FromMinutes(60) };
+        }
+
+        public static string FormatFileSize(long bytes)
+        {
+            var unit = 1024;
+            if (bytes < unit) { return $"{bytes} B"; }
+
+            var exp = (int)(Math.Log(bytes) / Math.Log(unit));
+            return $"{bytes / Math.Pow(unit, exp):F2} {("KMGTPE")[exp - 1]}B";
         }
 
         private object CheckLock = new object();
 
-        private int maximum = 0;
+        private long maximum = 0;
 
         private async Task<bool> ScanFile(string path)
         {
@@ -240,7 +256,6 @@ namespace StreamOverlayUpdater
                 Interlocked.Increment(ref progress);
             NotifyPropertyChanged("Progress");
             ProgressText = $"Checked: file {progress} of {maximum}";
-            UpdateName = path.Remove(0, AppContext.BaseDirectory.Length);
             return true;
         }
 
@@ -302,10 +317,9 @@ namespace StreamOverlayUpdater
                 AvailableVersion = "up-to-dated";
             }
             Progress = 0;
-            pbProgress.Maximum = NewUpdates.Count;
-
-
-            maximum = NewUpdates.Count();
+            pbProgress.Maximum = NewUpdates.Sum(x=>x.size);
+            UpdateProgress = new(NewUpdates);
+            maximum = NewUpdates.Sum(x => x.size);
 
             var UpdateTasks = new List<Task>();
             for (int i = 0; i < 20; i++)

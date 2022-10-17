@@ -113,6 +113,8 @@
     </LinearGradientBrush>
     <Style TargetType="{x:Type Button}"
            x:Key="HomeCityHUDButton">
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="Height"
                 Value="100" />
         <Setter Property="Width"
@@ -4268,6 +4270,8 @@
            TargetType="{x:Type Thumb}">
         <Setter Property="SnapsToDevicePixels"
                 Value="true" />
+        <Setter Property="Focusable"
+                Value="false" />
         <Setter Property="OverridesDefaultStyle"
                 Value="true" />
         <Setter Property="Height"
@@ -4343,7 +4347,7 @@
                     BorderBrush="{StaticResource HorizontalNormalBorderBrush}"
                     BorderThickness="1"
                     CornerRadius="2" />
-            <Track Name="PART_Track"
+            <Track Name="PART_Track" Focusable="False"
                    Grid.Row="1">
                 <Track.DecreaseRepeatButton>
                     <RepeatButton Command="Slider.DecreaseLarge"
@@ -4394,6 +4398,8 @@
     </ControlTemplate>
     <Style x:Key="{x:Type Slider}"
            TargetType="{x:Type Slider}">
+        <Setter Property="Focusable"
+                Value="False" />
         <Setter Property="SnapsToDevicePixels"
                 Value="true" />
         <Setter Property="OverridesDefaultStyle"

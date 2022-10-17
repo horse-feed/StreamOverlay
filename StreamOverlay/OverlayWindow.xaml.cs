@@ -102,16 +102,38 @@ namespace StreamOverlay
         private readonly DispatcherTimer _timer;
         TimeSpan _time;
 
+        private ICommand showSoundControl;
+        public ICommand ShowSoundControl
+        {
+            get
+            {
+                return showSoundControl ??= new ActionCommand(async () =>
+                    {
+                        
+                        if (gPlaybackControl.Visibility == Visibility.Visible)
+                        {
+                            gPlaybackControl.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            gPlaybackControl.Visibility = Visibility.Visible;
+                        }
+
+                            
+                    });
+            }
+        }
+
         private ICommand timeUp;
         public ICommand TimeUp
         {
             get
             {
                 return timeUp ??= new ActionCommand(() =>
-                    {
-                        _time = _time.Add(TimeSpan.FromMinutes(1));
-                        NotifyPropertyChanged("Time");
-                    });
+                {
+                    _time = _time.Add(TimeSpan.FromMinutes(1));
+                    NotifyPropertyChanged("Time");
+                });
             }
         }
 
@@ -497,6 +519,8 @@ namespace StreamOverlay
         public int Team1Score { get; set; }
         public int Team2Score { get; set; }
 
+
+
         private string team1Name;
         public string Team1Name
         {
@@ -844,12 +868,14 @@ namespace StreamOverlay
         {
             stBrandLogo.ScaleX = 1 + e.NewValue / 100;
             stBrandLogo.ScaleY = 1 + e.NewValue / 100;
+            this.Focus();
         }
 
         private void Slider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             stEventLogo.ScaleX = 1 + e.NewValue / 100;
             stEventLogo.ScaleY = 1 + e.NewValue / 100;
+            this.Focus();
         }
 
         private void AudioPlayer_MediaEnded(object sender, RoutedEventArgs e)
@@ -1097,13 +1123,14 @@ namespace StreamOverlay
                 CasterBlackStop.BeginAnimation(GradientStop.OffsetProperty, center4);
                 CasterShowed = false;
             }
-
+            this.Focus();
         }
 
         private void sVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             this.BeginAnimation(SoundVolume, new DoubleAnimation(e.NewValue/100, TimeSpan.FromMilliseconds(0)));
             Volume = e.NewValue;
+            this.Focus();
         }
 
         private async void TextBlock_MouseDown_4(object sender, MouseButtonEventArgs e)

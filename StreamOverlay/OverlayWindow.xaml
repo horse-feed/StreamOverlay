@@ -3445,6 +3445,7 @@
                             </Grid>
                         </Grid>
                         <Grid x:Name="gTwitchInfo"
+                              Focusable="False"
                               MouseLeftButtonDown="ObjectMouseDown"
                               Panel.ZIndex="5"
                               MouseLeftButtonUp="ObjectMouseUp">
@@ -3626,6 +3627,7 @@
                                     HorizontalAlignment="Left"
                                     Style="{StaticResource HomeCityHUDButton}"
                                     Focusable="False"
+                           
                                     Click="Button_Click" />
                         </Grid>
                         <Grid x:Name="gScorePanel"
@@ -3661,42 +3663,15 @@
                         <Grid x:Name="gPlaybackControl"
                               Width="1920"
                               Height="150"
+                              Panel.ZIndex="999"
+                              Visibility="Hidden"
                               Background="{DynamicResource SoundPanelGradient}"
-                              Opacity="0">
+                              >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                       
-                            <Grid.Triggers>
-                                <EventTrigger RoutedEvent="MouseEnter">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                             To="1"
-                                                             BeginTime="0:0:0.4"
-                                                             Duration="0:0:0.8">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CircleEase EasingMode="EaseOut" />
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                                <EventTrigger RoutedEvent="MouseLeave">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                             To="0"
-                                                             Duration="0:0:0.8">
-                                                <DoubleAnimation.EasingFunction>
-                                                    <CircleEase EasingMode="EaseOut" />
-                                                </DoubleAnimation.EasingFunction>
-                                            </DoubleAnimation>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                            </Grid.Triggers>
+
                             <Grid Style="{DynamicResource PatternBlackOverlay}" Grid.RowSpan="2" />
                             <StackPanel VerticalAlignment="Center"
                                         Grid.Row="1"
@@ -3720,7 +3695,6 @@
                                         Width="300"
                                         Grid.Row="0"
                                         x:Name="sVolume"
-                                        
                                         Minimum="0"
                                         IsSnapToTickEnabled="False"
                                         TickFrequency="20"

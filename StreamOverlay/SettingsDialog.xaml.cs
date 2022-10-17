@@ -1087,6 +1087,7 @@ namespace StreamOverlay
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.ScorePanelVisibility, new KeyGesture(Key.D8, ModifierKeys.Control)));
 
             mainWindow.InputBindings.Add(new InputBinding(mainWindow.ChromakeyVisibility, new KeyGesture(Key.D0, ModifierKeys.Control)));
+            mainWindow.InputBindings.Add(new InputBinding(mainWindow.ShowSoundControl, new KeyGesture(Key.V, ModifierKeys.Alt)));
             //mainWindow.InputBindings.Add(new InputBinding(mainWindow.KotowSpecial, new KeyGesture(Key.K, ModifierKeys.Alt)));
 
 

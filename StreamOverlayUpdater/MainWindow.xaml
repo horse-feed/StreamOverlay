@@ -70,16 +70,7 @@
                     Foreground="White"
                     Text="{Binding ProgressText}"
                     TextDecorations="{x:Null}" />
-                <TextBlock
-                     Margin="20,0"
-                    Grid.Row="4"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    FontFamily="/Fonts/#Trajan Pro 3"
-                    FontSize="14"
-                    Foreground="White"
-                    Text="{Binding UpdateName}"
-                    TextDecorations="{x:Null}" />
+            
        
 
 
