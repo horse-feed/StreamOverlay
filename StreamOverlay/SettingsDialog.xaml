@@ -3609,6 +3609,15 @@
                             <Run FontSize="22"
                                  FontWeight="Bold"
                                  Foreground="#FF00FF46"
+                                 Text="Alt+V" />
+
+                            <Run Text="Show/hide Soundtrack Panel." />
+
+                            <LineBreak />
+                            <LineBreak />
+                            <Run FontSize="22"
+                                 FontWeight="Bold"
+                                 Foreground="#FF00FF46"
                                  Text="ESC" />
 
                             <Run Text="Closes the overlay window and opens the settings window. Useful if you need to change some information or if the overlay is not used to reduce the load on the PC." />

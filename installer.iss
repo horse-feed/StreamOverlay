@@ -40,6 +40,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "publish\x86\Release\net6.0-windows\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\x86\Release\net6.0-windows\ColorPicker.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\x86\Release\net6.0-windows\System.Net.Http.Formatting.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\x86\Release\net6.0-windows\Newtonsoft.Json.Bson.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "publish\x86\Release\net6.0-windows\Newtonsoft.Json.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\x86\Release\net6.0-windows\K4os.Hash.xxHash.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\x86\Release\net6.0-windows\LibVLCSharp.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "publish\x86\Release\net6.0-windows\LibVLCSharp.WPF.dll"; DestDir: "{app}"; Flags: ignoreversion
